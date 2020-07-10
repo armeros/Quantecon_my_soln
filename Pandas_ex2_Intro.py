@@ -36,7 +36,7 @@ def returns(index, start=1970, end=2021):
                 p2 = indices_data.loc[str(year), index][-(1+i)]
                 break
         try:
-            temp[str(year)] = (p2-p1)/p1
+            temp[year] = (p2-p1)/p1
         except: #p1 = None or p2 = None, i.e., when all entries in a particular year are NaN
             pass
     return temp #Note that temp is dict.
@@ -47,7 +47,7 @@ plot_map = {(0,0):'^GSPC', (0, 1): '^IXIC', (1,0):'^DJI', (1, 1):'^N225' } #Supp
 fig, axes = plt.subplots(2, 2, figsize= (10, 6))  #following how to do multiple plots from previous
 for i in plot_map:
     y = Series(returns(plot_map[i]))
-    y.index = y.index.astype('int64') #if you don't do this your x-axis will be unreadable.
+    #y.index = y.index.astype('int64') #if you don't do this your x-axis will be unreadable.
     axes[i[0],i[1]].plot(y)
     axes[i[0],i[1]].set_ylabel('Percentage Change', fontsize=12)
     axes[i[0],i[1]].set_title(indices_list[plot_map[i]])
